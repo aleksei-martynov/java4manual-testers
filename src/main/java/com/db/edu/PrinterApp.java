@@ -12,7 +12,7 @@ public class PrinterApp {
      */
     public static void main(String... args) {
         logger.debug("Entering main method with args {}", args);
-        System.out.println( "Hello World!!!!" + args[0]);
+        System.out.println( "Hello World!!!!!" + args[0]);
         System.out.println( "Hello World!!!" + args[1]);
         mySuperMethod();
         System.out.println( "Hello World!!!" + args[2]);
