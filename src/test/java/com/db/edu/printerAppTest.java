@@ -1,9 +1,9 @@
 package com.db.edu;
 
 //TODO Refactor to OOP testable design.
-public class PrinterAppTest {
+public class printerAppTest {
     public void shouldPrintWhenNormalFlowStringParameter() {
-        PrinterApp sut = new PrinterApp();
-        sut.main();
+//        EtlApp sut = new EtlApp();
+//        sut.main();
     }
 }
