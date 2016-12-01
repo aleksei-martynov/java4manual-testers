@@ -7,36 +7,27 @@ public class Controller {
 
     private static final Logger logger = LoggerFactory.getLogger(Controller.class);
 
-    public static String[] transform(RecordType recordType, String rawDataRecord) {
-        switch (recordType) {
-            case EIS1_DATA_FILE:
-                logger.debug("Start transformation for RecordType: " + recordType.name());
-                logger.debug("Start transformation for RecordType: " + recordType.name());
-                return null;
-            case EIS2_DATA_FILE:
-                logger.debug("Start transformation for RecordType: " + recordType.name());
-                logger.debug("Start transformation for RecordType: " + recordType.name());
-                return null;
-            case EIS3_DATA_FILE:
-                logger.debug("Start transformation for RecordType: " + recordType.name());
-                logger.debug("Start transformation for RecordType: " + recordType.name());
-                return null;
-            case EIS4_DATA_FILE:
-                logger.debug("Start transformation for RecordType: " + recordType.name());
-                logger.debug("Start transformation for RecordType: " + recordType.name());
-                return null;
-            default:
-                return null;
+    public static int[] transform(RecordType recordType, int[] rawDataRecords) {
+        float sum = 0;
+        if (rawDataRecords.length == 0) {
+            logger.error("Input data set is empty");
+            return rawDataRecords;
+        } else {
+            for (int current : rawDataRecords) {
+                sum += current;
+            }
         }
+        logger.info("Average value in extracted list: " + sum/rawDataRecords.length);
+        return rawDataRecords;
     }
 
-    public static String extract(RecordType recordType) {
+    public static int[] extract(RecordType recordType) {
         logger.debug("Start extracting for RecordType: " + recordType.name());
         logger.debug("End extracting for RecordType: " + recordType.name());
-        return null;
+        return new int[] {1,2,recordType.ordinal()};
     }
 
-    public static void load(String[] transformedData) {
+    public static void load(int[] transformedData) {
         logger.debug("Start loading transformed data");
         logger.debug("End loading transformed data");
         logger.info("---------- Loading has ended ----------");

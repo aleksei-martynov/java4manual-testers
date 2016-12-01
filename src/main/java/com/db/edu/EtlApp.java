@@ -1,5 +1,6 @@
 package com.db.edu;
 
+import com.db.edu.etl.Controller;
 import com.db.edu.etl.RecordType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,25 +13,16 @@ public class EtlApp {
     private EtlApp() {
     }
 
-    ;
-
     public static void main(String... args) {
-
-        testPrintUsingLogger(args);
-
-        for (RecordType enumSwitcher : RecordType.values()) {
-            load(transform(
-                    enumSwitcher,
-                    extract(enumSwitcher)));
-        }
+        Controller.transform(RecordType.EIS4_DATA_FILE, new int[]{1, 0, 3, 100, 50, -3});
+        fullEtlProcess();
     }
 
-    private static void testPrintUsingLogger(String[] args) {
-        logger.debug("Entering main method with args {}", args);
-        logger.debug("Hello World: " + args[0]);
-        logger.debug("Hello World: " + args[1]);
-        logger.info("Test print");
-        logger.debug("Hello World: " + args[2]);
-        logger.debug("Hello World: " + args[4]);
+    private static void fullEtlProcess() {
+        for (RecordType recordType : RecordType.values()) {
+            load(transform(
+                    recordType,
+                    extract(recordType)));
+        }
     }
 }
