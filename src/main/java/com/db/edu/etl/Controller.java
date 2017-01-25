@@ -7,7 +7,7 @@ public class Controller {
 
     private static final Logger logger = LoggerFactory.getLogger(Controller.class);
 
-    public static int[] transform(RecordType recordType, int[] rawDataRecords) {
+    public static int[] transform(UpstreamType recordType, int[] rawDataRecords) {
         float sum = 0;
         if (rawDataRecords.length == 0) {
             logger.error("Input data set is empty");
@@ -21,9 +21,9 @@ public class Controller {
         return rawDataRecords;
     }
 
-    public static int[] extract(RecordType recordType) {
-        logger.debug("Start extracting for RecordType: " + recordType.name());
-        logger.debug("End extracting for RecordType: " + recordType.name());
+    public static int[] extract(UpstreamType recordType) {
+        logger.debug("Start extracting for UpstreamType: " + recordType.name());
+        logger.debug("End extracting for UpstreamType: " + recordType.name());
         return new int[] {1,2,recordType.ordinal()};
     }
 

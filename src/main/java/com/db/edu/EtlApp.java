@@ -1,7 +1,7 @@
 package com.db.edu;
 
 import com.db.edu.etl.Controller;
-import com.db.edu.etl.RecordType;
+import com.db.edu.etl.UpstreamType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,12 +14,12 @@ public class EtlApp {
     }
 
     public static void main(String... args) {
-        Controller.transform(RecordType.EIS4_DATA_FILE, new int[]{1, 0, 3, 100, 50, -3});
+        Controller.transform(UpstreamType.EIS4_DATA_FILE, new int[]{1, 0, 3, 100, 50, -3});
         fullEtlProcess();
     }
 
     private static void fullEtlProcess() {
-        for (RecordType recordType : RecordType.values()) {
+        for (UpstreamType recordType : UpstreamType.values()) {
             load(transform(
                     recordType,
                     extract(recordType)));
