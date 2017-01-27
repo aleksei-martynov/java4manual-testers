@@ -15,7 +15,7 @@ public class EtlController {
         this.loaders = loaders;
     }
 
-    public void fullEtlProcess() {
+    public void fullEtlProcess() throws EtlProcessException {
         try {
             ExtractedUsers[] users = extractor.extract();
             for (EtlLoader current : loaders) {
