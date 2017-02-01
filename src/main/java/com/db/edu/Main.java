@@ -24,7 +24,6 @@ public class Main {
         }  catch (EtlException e) {
             throw new RuntimeException("Caught you!", e);
 //            How to get data from 'cause'?   I want to print user data
-            
 //            logger.debug("test" + e.getCause());
 //            logger.debug("First extracted user data: ["+e.getCause() + ", " + e.getExtractedUser().getUserName() + "]");
         }
