@@ -1,5 +1,6 @@
 package com.db.edu.etl;
 
+import com.db.edu.etl.Exception.*;
 import com.db.edu.etl.Extractor.EtlExtractor;
 import com.db.edu.etl.Loader.EtlLoader;
 import org.slf4j.Logger;
@@ -15,15 +16,22 @@ public class EtlController {
         this.loaders = loaders;
     }
 
-    public void fullEtlProcess() throws EtlProcessException {
+    public void fullEtlProcess() throws EtlException {
         try {
-            ExtractedUsers[] users = extractor.extract();
+            ExtractedUser[] users = extractor.extract();
             for (EtlLoader current : loaders) {
                 current.load(users);
             }
 
-        } catch (RuntimeException e){
-            throw new EtlProcessException("Please stop do this!", e);
+        } catch (TransformException e) {
+            throw new EtlException("Please stop this!", e);
+        } catch (ParseException e) {
+            throw new EtlException("Please stop this!", e);
+        } catch (DataLoadException e) {
+            throw new EtlException("Please stop this!", e);
+        } catch (DataExtractException e) {
+//            logger.debug("First extracted user data: [" + e.getExtractedUser().getUserID() + ", " + e.getExtractedUser().getUserName() + "]");
+            throw new EtlException("Please stop this!", e);
         } finally {
             logger.debug("finally always executes!");
         }

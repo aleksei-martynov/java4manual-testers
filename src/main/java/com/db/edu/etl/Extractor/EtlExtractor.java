@@ -1,7 +1,9 @@
 package com.db.edu.etl.Extractor;
 
-import com.db.edu.etl.ExtractedUsers;
+import com.db.edu.etl.Exception.DataExtractException;
+import com.db.edu.etl.Exception.ParseException;
+import com.db.edu.etl.ExtractedUser;
 
 public interface EtlExtractor {
-    ExtractedUsers[] extract();
+    ExtractedUser[] extract() throws DataExtractException, ParseException;
 }

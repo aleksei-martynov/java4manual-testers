@@ -1,14 +1,22 @@
 package com.db.edu.etl.Extractor;
 
-import com.db.edu.etl.ExtractedUsers;
+import com.db.edu.etl.Exception.DataExtractException;
+import com.db.edu.etl.Exception.ParseException;
+import com.db.edu.etl.ExtractedUser;
 
 public class FileCvsExtractor implements EtlExtractor {
 
     @Override
-    public ExtractedUsers[] extract() {
-        if (true) {
-            throw new RuntimeException("Oops! Not implemented yet :( ");
+    public ExtractedUser[] extract() throws ParseException, DataExtractException {
+        // Stub data generation
+        ExtractedUser userData = new ExtractedUser("001", "tester001");
+        ExtractedUser[] stubReturn = {userData};
+
+        if (stubReturn.length < 1) {
+            throw new ParseException("Bad stub data :(");
         }
-        return new ExtractedUsers[0];
+        if (stubReturn.length == 1) throw new DataExtractException("Ooops! Extracted list is too small", stubReturn[0]);
+
+        return stubReturn;
     }
 }

@@ -1,10 +1,10 @@
 package com.db.edu.etl.Loader;
 
-import com.db.edu.etl.ExtractedUsers;
+import com.db.edu.etl.ExtractedUser;
 
 public class StubLoader2 implements EtlLoader {
     @Override
-    public void load(ExtractedUsers[] users) {
+    public void load(ExtractedUser[] users) {
         return;
     }
 }
