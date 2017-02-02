@@ -1,7 +1,7 @@
 package com.db.edu.etl;
 
-public class ExtractedUser {
-    public ExtractedUser(String userID, String userName) {
+public class ExtractedUsers {
+    public ExtractedUsers(String userID, String userName) {
         UserID = userID;
         UserName = userName;
     }

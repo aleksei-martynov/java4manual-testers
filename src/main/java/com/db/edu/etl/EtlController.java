@@ -18,25 +18,21 @@ public class EtlController {
 
     public void fullEtlProcess() throws EtlException {
         try {
-            ExtractedUser[] users = extractor.extract();
+            ExtractedUsers[] users = extractor.extract();
             for (EtlLoader current : loaders) {
                 current.load(users);
             }
-
         } catch (TransformException e) {
-            throw new EtlException("Please stop this!", e);
+            throw new EtlException("Please stop transforming!", e);
         } catch (ParseException e) {
-            throw new EtlException("Please stop this!", e);
+            throw new EtlException("Please stop parsing!", e);
         } catch (DataLoadException e) {
-            throw new EtlException("Please stop this!", e);
+            throw new EtlException("Please stop data loading process!", e);
         } catch (DataExtractException e) {
-//            logger.debug("First extracted user data: [" + e.getExtractedUser().getUserID() + ", " + e.getExtractedUser().getUserName() + "]");
-            throw new EtlException("Please stop this!", e);
+            throw new EtlException("Please stop data extracting process!", e);
         } finally {
             logger.debug("finally always executes!");
         }
-
     }
-
 }
 

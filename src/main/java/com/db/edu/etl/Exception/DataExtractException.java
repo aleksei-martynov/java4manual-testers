@@ -1,10 +1,10 @@
 package com.db.edu.etl.Exception;
 
-import com.db.edu.etl.ExtractedUser;
+import com.db.edu.etl.ExtractedUsers;
 
 public class DataExtractException extends Exception {
 
-    private ExtractedUser user;
+    private ExtractedUsers user;
 
     public DataExtractException(String message) {
         super(message);
@@ -22,12 +22,12 @@ public class DataExtractException extends Exception {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 
-    public DataExtractException(String message, ExtractedUser extractedUser) {
+    public DataExtractException(String message, ExtractedUsers extractedUser) {
         super(message);
         user = extractedUser;
     }
 
-    public ExtractedUser getExtractedUser() {
+    public ExtractedUsers getExtractedUser() {
         return user;
     }
 }
