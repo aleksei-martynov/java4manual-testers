@@ -8,6 +8,7 @@ import com.db.edu.etl.Extractor.FileCvsExtractor;
 import com.db.edu.etl.Loader.StubLoader1;
 import com.db.edu.etl.Loader.StubLoader2;
 
+//TODO: Move all checks to Tests
 public class Main {
     public static void main(String[] args) {
         try {
