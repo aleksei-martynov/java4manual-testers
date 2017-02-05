@@ -1,13 +1,16 @@
 package com.db.edu.etl.Exception;
 
-import com.db.edu.etl.ExtractedUsers;
+import com.db.edu.etl.ExtractedUser;
 
 public class DataExtractException extends Exception {
 
-    private ExtractedUsers user;
+    private ExtractedUser user;
 
     public DataExtractException(String message) {
         super(message);
+    }
+
+    public DataExtractException() {
     }
 
     public DataExtractException(String message, Throwable cause) {
@@ -22,12 +25,12 @@ public class DataExtractException extends Exception {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 
-    public DataExtractException(String message, ExtractedUsers extractedUser) {
+    public DataExtractException(String message, ExtractedUser extractedUser) {
         super(message);
         user = extractedUser;
     }
 
-    public ExtractedUsers getExtractedUser() {
+    public ExtractedUser getExtractedUser() {
         return user;
     }
 }

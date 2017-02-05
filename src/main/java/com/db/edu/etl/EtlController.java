@@ -18,7 +18,7 @@ public class EtlController {
 
     public void fullEtlProcess() throws EtlException {
         try {
-            ExtractedUsers[] users = extractor.extract();
+            ExtractedUser[] users = extractor.extract();
             for (EtlLoader current : loaders) {
                 current.load(users);
             }
@@ -30,8 +30,6 @@ public class EtlController {
             throw new EtlException("Please stop data loading process!", e);
         } catch (DataExtractException e) {
             throw new EtlException("Please stop data extracting process!", e);
-        } finally {
-            logger.debug("finally always executes!");
         }
     }
 }
