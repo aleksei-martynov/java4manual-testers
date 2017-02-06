@@ -14,6 +14,9 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Executable;
+import java.lang.reflect.InvocationTargetException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Matchers.any;
@@ -34,104 +37,116 @@ public class EtlControllerTest {
     private EtlController controller;
 
     @BeforeAll
-    static void BeforAllTest(){
+    static void BeforAllTest() {
         logger.info("@BeforAll works!!!");
     }
 
     @AfterAll
-    static void AfterAllTest(){
+    static void AfterAllTest() {
         logger.info("@AfterAll works!!!");
     }
 
     @BeforeEach
-    void prepare(){
+    void prepare() {
         stubExtractor = mock(EtlExtractor.class);
         mockLoader = mock(EtlLoader.class);
-        dummyUsers = new ExtractedUser[]{
-                new ExtractedUser("0001", "qa01"),
-                new ExtractedUser("0002", "qa02")};
-        controller = new EtlController(
-                stubExtractor,
-                new EtlLoader[]{mockLoader, mockLoader}
-        );
-        logger.info("Test preparations have completed");
+        dummyUsers = new ExtractedUser[]{new ExtractedUser("0001", "qa01"), new ExtractedUser("0002", "qa02")};
+        controller = new EtlController(stubExtractor, new EtlLoader[]{mockLoader, mockLoader});
     }
 
     @Test
     void shouldDoFullEtlWhenNoExceptions() throws DataExtractException, ParseException, TransformException, DataLoadException {
         // Given
-        // Some Mokito magic!!
+//        Class<? extends Throwable> exceptionType = DataExtractException.class;
+
         when(stubExtractor.extract()).thenReturn(dummyUsers);
         // When
         controller.fullEtlProcess();
         // Then
-        verify(mockLoader,times(2)).load(dummyUsers);
-
-        logger.debug("No Exception path tested");
+        verify(mockLoader, times(2)).load(dummyUsers);
     }
 
     @Test
     void shouldThrowDataExtractException() throws DataExtractException, ParseException {
         // Given
-        // Some Mokito magic!!
+//        makeStubBehaviour(DataExtractException.class, EXCEPTION_TEST_MESSAGE, stubExtractor::extract);
+
         when(stubExtractor.extract()).thenThrow(new DataExtractException(EXCEPTION_TEST_MESSAGE));
         // When
         final Throwable caughtException = assertThrows(EtlException.class, controller::fullEtlProcess);
-        assertEquals(
-                "Please stop data extracting process!", caughtException.getMessage()
-        );
+        assertEquals("Please stop data extracting process!", caughtException.getMessage());
 
         final DataExtractException cause = (DataExtractException) caughtException.getCause();
-        assertEquals(EXCEPTION_TEST_MESSAGE,cause.getMessage());
-
-        logger.debug("DataExtractException path tested");
+        assertEquals(EXCEPTION_TEST_MESSAGE, cause.getMessage());
     }
 
     @Test
     void shouldThrowParseException() throws DataExtractException, ParseException {
         // Given
-        // Some Mokito magic!!
         when(stubExtractor.extract()).thenThrow(new ParseException(EXCEPTION_TEST_MESSAGE));
         // When
         final Throwable caughtException = assertThrows(EtlException.class, controller::fullEtlProcess);
-        assertEquals(
-                "Please stop parsing!", caughtException.getMessage()
-        );
+        assertEquals("Please stop parsing!", caughtException.getMessage());
 
         final ParseException cause = (ParseException) caughtException.getCause();
-        assertEquals(EXCEPTION_TEST_MESSAGE,cause.getMessage());
-
-        logger.debug("ParseException path tested");
+        assertEquals(EXCEPTION_TEST_MESSAGE, cause.getMessage());
     }
 
     @Test
     void shouldThrowDataLoadException() throws DataExtractException, ParseException, TransformException, DataLoadException {
         // Given
-        // Some Mokito magic!!
         doThrow(new DataLoadException(EXCEPTION_TEST_MESSAGE)).when(mockLoader).load(any());
         // When
         final Throwable caughtException = assertThrows(EtlException.class, controller::fullEtlProcess);
-        assertEquals(
-                "Please stop data loading process!", caughtException.getMessage()
-        );
+        assertEquals("Please stop data loading process!", caughtException.getMessage());
         final DataLoadException cause = (DataLoadException) caughtException.getCause();
-        assertEquals(EXCEPTION_TEST_MESSAGE,cause.getMessage());
-
-        logger.debug("DataLoadException path tested");
+        assertEquals(EXCEPTION_TEST_MESSAGE, cause.getMessage());
     }
+
     @Test
     void shouldThrowTransformException() throws DataExtractException, ParseException, TransformException, DataLoadException {
         // Given
-        // Some Mokito magic!!
         doThrow(new TransformException(EXCEPTION_TEST_MESSAGE)).when(mockLoader).load(any());
         // When
         final Throwable caughtException = assertThrows(EtlException.class, controller::fullEtlProcess);
-        assertEquals(
-                "Please stop transforming!", caughtException.getMessage()
-        );
+        assertEquals("Please stop transforming!", caughtException.getMessage());
         final TransformException cause = (TransformException) caughtException.getCause();
-        assertEquals(EXCEPTION_TEST_MESSAGE,cause.getMessage());
-
-        logger.debug("TransformException path tested");
+        assertEquals(EXCEPTION_TEST_MESSAGE, cause.getMessage());
     }
+
+    private void makeStubBehaviour(Class<? extends Throwable> exception, String exeptionMessage, Executable executable) {
+        try {
+            when(executable).thenThrow(exception.getConstructor(String.class).newInstance(exeptionMessage));
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
+
+//    class BehaviourBuilder {
+//        public BehaviourBuilder withException(Class<? extends Throwable> exceptionType, String exceptionMessage, Executable executable) {
+//            try {
+//                exceptionType.getConstructor(String.class).newInstance(exceptionMessage);
+//            } catch (InstantiationException e) {
+//                e.printStackTrace();
+//            } catch (IllegalAccessException e) {
+//                e.printStackTrace();
+//            } catch (InvocationTargetException e) {
+//                e.printStackTrace();
+//            } catch (NoSuchMethodException e) {
+//                e.printStackTrace();
+//            }
+//            return this;
+//        }
+//        public void build(Class<? extends Throwable> exceptionType, String exceptionMessage, Executable executable){
+//            when(executable).thenThrow(this)
+//        }
+//    }
+//}
