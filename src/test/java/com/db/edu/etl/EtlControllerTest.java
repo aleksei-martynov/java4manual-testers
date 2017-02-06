@@ -1,22 +1,37 @@
 package com.db.edu.etl;
 
-import com.db.edu.etl.Exception.*;
+import com.db.edu.etl.Exception.DataExtractException;
+import com.db.edu.etl.Exception.DataLoadException;
+import com.db.edu.etl.Exception.EtlException;
+import com.db.edu.etl.Exception.ParseException;
+import com.db.edu.etl.Exception.TransformException;
 import com.db.edu.etl.Extractor.EtlExtractor;
 import com.db.edu.etl.Loader.EtlLoader;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 public class EtlControllerTest {
 
     public static final Logger logger = LoggerFactory.getLogger(EtlControllerTest.class);
     public static final String EXCEPTION_TEST_MESSAGE = "Exception test message";
+
+    private EtlExtractor stubExtractor;
+    private EtlLoader mockLoader;
+    private ExtractedUser[] dummyUsers;
+    private EtlController controller;
 
     @BeforeAll
     static void BeforAllTest(){
@@ -28,27 +43,27 @@ public class EtlControllerTest {
         logger.info("@AfterAll works!!!");
     }
 
-    @Test
-    void shouldDoFullEtlWhenNoExceptions() throws DataExtractException, ParseException, TransformException, DataLoadException {
-         // Given
-        final EtlExtractor stubExtractor = mock(EtlExtractor.class);
-        final EtlLoader mockLoader = mock(EtlLoader.class);
-        final ExtractedUser[] dummyUsers = {
-                new ExtractedUser("0001","qa01"),
-                new ExtractedUser("0002","qa02")
-        };
-
-        // Some Mokito magic!!
-        when(stubExtractor.extract()).thenReturn(dummyUsers);
-
-        EtlController controller = new EtlController(
+    @BeforeEach
+    void prepare(){
+        stubExtractor = mock(EtlExtractor.class);
+        mockLoader = mock(EtlLoader.class);
+        dummyUsers = new ExtractedUser[]{
+                new ExtractedUser("0001", "qa01"),
+                new ExtractedUser("0002", "qa02")};
+        controller = new EtlController(
                 stubExtractor,
                 new EtlLoader[]{mockLoader, mockLoader}
         );
+        logger.info("Test preparations have completed");
+    }
 
+    @Test
+    void shouldDoFullEtlWhenNoExceptions() throws DataExtractException, ParseException, TransformException, DataLoadException {
+        // Given
+        // Some Mokito magic!!
+        when(stubExtractor.extract()).thenReturn(dummyUsers);
         // When
         controller.fullEtlProcess();
-
         // Then
         verify(mockLoader,times(2)).load(dummyUsers);
 
@@ -58,18 +73,8 @@ public class EtlControllerTest {
     @Test
     void shouldThrowDataExtractException() throws DataExtractException, ParseException {
         // Given
-        final EtlExtractor stubExtractor = mock(EtlExtractor.class);
-        final EtlLoader mockLoader = mock(EtlLoader.class);
-//        final Class<DataExtractException> exceptionType =  DataExtractException.class;
-
         // Some Mokito magic!!
         when(stubExtractor.extract()).thenThrow(new DataExtractException(EXCEPTION_TEST_MESSAGE));
-
-        EtlController controller = new EtlController(
-                stubExtractor,
-                new EtlLoader[]{mockLoader, mockLoader}
-        );
-
         // When
         final Throwable caughtException = assertThrows(EtlException.class, controller::fullEtlProcess);
         assertEquals(
@@ -85,18 +90,8 @@ public class EtlControllerTest {
     @Test
     void shouldThrowParseException() throws DataExtractException, ParseException {
         // Given
-        final EtlExtractor stubExtractor = mock(EtlExtractor.class);
-        final EtlLoader mockLoader = mock(EtlLoader.class);
-//        final Class<DataExtractException> exceptionType =  DataExtractException.class;
-
         // Some Mokito magic!!
         when(stubExtractor.extract()).thenThrow(new ParseException(EXCEPTION_TEST_MESSAGE));
-
-        EtlController controller = new EtlController(
-                stubExtractor,
-                new EtlLoader[]{mockLoader, mockLoader}
-        );
-
         // When
         final Throwable caughtException = assertThrows(EtlException.class, controller::fullEtlProcess);
         assertEquals(
@@ -112,28 +107,13 @@ public class EtlControllerTest {
     @Test
     void shouldThrowDataLoadException() throws DataExtractException, ParseException, TransformException, DataLoadException {
         // Given
-        final EtlExtractor stubExtractor = mock(EtlExtractor.class);
-        final EtlLoader mockLoader = mock(EtlLoader.class);
-//        final Class<DataExtractException> exceptionType =  DataExtractException.class;
-        final ExtractedUser[] dummyUsers = {
-                new ExtractedUser("0001","qa01"),
-                new ExtractedUser("0002","qa02")
-        };
-
         // Some Mokito magic!!
         doThrow(new DataLoadException(EXCEPTION_TEST_MESSAGE)).when(mockLoader).load(any());
-
-        EtlController controller = new EtlController(
-                stubExtractor,
-                new EtlLoader[]{mockLoader, mockLoader}
-        );
-
         // When
         final Throwable caughtException = assertThrows(EtlException.class, controller::fullEtlProcess);
         assertEquals(
                 "Please stop data loading process!", caughtException.getMessage()
         );
-
         final DataLoadException cause = (DataLoadException) caughtException.getCause();
         assertEquals(EXCEPTION_TEST_MESSAGE,cause.getMessage());
 
@@ -142,32 +122,16 @@ public class EtlControllerTest {
     @Test
     void shouldThrowTransformException() throws DataExtractException, ParseException, TransformException, DataLoadException {
         // Given
-        final EtlExtractor stubExtractor = mock(EtlExtractor.class);
-        final EtlLoader mockLoader = mock(EtlLoader.class);
-//        final Class<DataExtractException> exceptionType =  DataExtractException.class;
-        final ExtractedUser[] dummyUsers = {
-                new ExtractedUser("0001","qa01"),
-                new ExtractedUser("0002","qa02")
-        };
-
         // Some Mokito magic!!
         doThrow(new TransformException(EXCEPTION_TEST_MESSAGE)).when(mockLoader).load(any());
-
-        EtlController controller = new EtlController(
-                stubExtractor,
-                new EtlLoader[]{mockLoader, mockLoader}
-        );
-
         // When
         final Throwable caughtException = assertThrows(EtlException.class, controller::fullEtlProcess);
         assertEquals(
                 "Please stop transforming!", caughtException.getMessage()
         );
-
         final TransformException cause = (TransformException) caughtException.getCause();
         assertEquals(EXCEPTION_TEST_MESSAGE,cause.getMessage());
 
         logger.debug("TransformException path tested");
     }
 }
-
