@@ -2,7 +2,7 @@ package com.db.edu.etl.Exception;
 
 import com.db.edu.etl.ExtractedUser;
 
-public class DataExtractException extends Exception {
+public class DataExtractException extends RuntimeException {
 
     private ExtractedUser user;
 

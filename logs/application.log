@@ -163,3 +163,21 @@
 2017-02-06 20:43:56,668 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:57] Test preparations have completed
 2017-02-06 20:43:56,670 DEBUG [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:135] TransformException path tested
 2017-02-06 20:43:56,674 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:43] @AfterAll works!!!
+2017-02-06 20:48:45,974 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:38] @BeforAll works!!!
+2017-02-06 20:48:46,201 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:57] Test preparations have completed for test: com.db.edu.etl.EtlControllerTest
+2017-02-06 20:48:46,243 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:57] Test preparations have completed for test: com.db.edu.etl.EtlControllerTest
+2017-02-06 20:48:46,261 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:57] Test preparations have completed for test: com.db.edu.etl.EtlControllerTest
+2017-02-06 20:48:46,264 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:57] Test preparations have completed for test: com.db.edu.etl.EtlControllerTest
+2017-02-06 20:48:46,272 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:57] Test preparations have completed for test: com.db.edu.etl.EtlControllerTest
+2017-02-06 20:48:46,276 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:43] @AfterAll works!!!
+2017-02-06 20:51:45,635 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:38] @BeforAll works!!!
+2017-02-06 20:51:45,864 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:57] Test preparations have completed for test: [Ljava.lang.Class;@63d4f0a2
+2017-02-06 20:51:45,914 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:57] Test preparations have completed for test: [Ljava.lang.Class;@31e2232f
+2017-02-06 20:51:45,920 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:57] Test preparations have completed for test: [Ljava.lang.Class;@462e1e64
+2017-02-06 20:51:45,932 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:57] Test preparations have completed for test: [Ljava.lang.Class;@6ca372ef
+2017-02-06 20:51:45,934 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:57] Test preparations have completed for test: [Ljava.lang.Class;@6ed043d3
+2017-02-06 20:51:45,946 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:43] @AfterAll works!!!
+2017-02-06 21:31:10,837 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:41] @BeforAll works!!!
+2017-02-06 21:31:11,020 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:46] @AfterAll works!!!
+2017-02-06 21:49:57,446 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:41] @BeforAll works!!!
+2017-02-06 21:49:57,863 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:46] @AfterAll works!!!

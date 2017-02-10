@@ -14,7 +14,6 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.Executable;
 import java.lang.reflect.InvocationTargetException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,8 +27,8 @@ import static org.mockito.Mockito.when;
 
 public class EtlControllerTest {
 
-    public static final Logger logger = LoggerFactory.getLogger(EtlControllerTest.class);
-    public static final String EXCEPTION_TEST_MESSAGE = "Exception test message";
+    private static final Logger logger = LoggerFactory.getLogger(EtlControllerTest.class);
+    private static final String EXCEPTION_TEST_MESSAGE = "Exception test message";
 
     private EtlExtractor stubExtractor;
     private EtlLoader mockLoader;
@@ -69,9 +68,9 @@ public class EtlControllerTest {
     @Test
     void shouldThrowDataExtractException() throws DataExtractException, ParseException {
         // Given
-//        makeStubBehaviour(DataExtractException.class, EXCEPTION_TEST_MESSAGE, stubExtractor::extract);
+        makeStubBehaviour(DataExtractException.class, EXCEPTION_TEST_MESSAGE, stubExtractor::extract);
 
-        when(stubExtractor.extract()).thenThrow(new DataExtractException(EXCEPTION_TEST_MESSAGE));
+//        when(stubExtractor.extract()).thenThrow(new DataExtractException(EXCEPTION_TEST_MESSAGE));
         // When
         final Throwable caughtException = assertThrows(EtlException.class, controller::fullEtlProcess);
         assertEquals("Please stop data extracting process!", caughtException.getMessage());
@@ -83,7 +82,7 @@ public class EtlControllerTest {
     @Test
     void shouldThrowParseException() throws DataExtractException, ParseException {
         // Given
-        when(stubExtractor.extract()).thenThrow(new ParseException(EXCEPTION_TEST_MESSAGE));
+        makeStubBehaviour(ParseException.class, EXCEPTION_TEST_MESSAGE, stubExtractor::extract);
         // When
         final Throwable caughtException = assertThrows(EtlException.class, controller::fullEtlProcess);
         assertEquals("Please stop parsing!", caughtException.getMessage());
@@ -114,9 +113,9 @@ public class EtlControllerTest {
         assertEquals(EXCEPTION_TEST_MESSAGE, cause.getMessage());
     }
 
-    private void makeStubBehaviour(Class<? extends Throwable> exception, String exeptionMessage, Executable executable) {
+    private void makeStubBehaviour(Class<? extends Throwable> exception, String exceptionMessage, java.util.function.Supplier<ExtractedUser[]> executable) {
         try {
-            when(executable).thenThrow(exception.getConstructor(String.class).newInstance(exeptionMessage));
+            when(executable).thenThrow(exception.getConstructor(String.class).newInstance(exceptionMessage));
         } catch (InstantiationException e) {
             e.printStackTrace();
         } catch (IllegalAccessException e) {
@@ -127,7 +126,6 @@ public class EtlControllerTest {
             e.printStackTrace();
         }
     }
-
 }
 
 //    class BehaviourBuilder {
