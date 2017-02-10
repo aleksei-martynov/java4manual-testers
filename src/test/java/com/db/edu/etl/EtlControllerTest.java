@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.lang.reflect.InvocationTargetException;
+import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -32,7 +32,7 @@ public class EtlControllerTest {
 
     private EtlExtractor stubExtractor;
     private EtlLoader mockLoader;
-    private ExtractedUser[] dummyUsers;
+    private HashSet<ExtractedUser> dummyUsers;
     private EtlController controller;
 
     @BeforeAll
@@ -49,7 +49,7 @@ public class EtlControllerTest {
     void prepare() {
         stubExtractor = mock(EtlExtractor.class);
         mockLoader = mock(EtlLoader.class);
-        dummyUsers = new ExtractedUser[]{new ExtractedUser("0001", "qa01"), new ExtractedUser("0002", "qa02")};
+        prepareDummyUsersSet();
         controller = new EtlController(stubExtractor, new EtlLoader[]{mockLoader, mockLoader});
     }
 
@@ -68,9 +68,9 @@ public class EtlControllerTest {
     @Test
     void shouldThrowDataExtractException() throws DataExtractException, ParseException {
         // Given
-        makeStubBehaviour(DataExtractException.class, EXCEPTION_TEST_MESSAGE, stubExtractor::extract);
+//        makeStubBehaviour(DataExtractException.class, EXCEPTION_TEST_MESSAGE, stubExtractor::extract);
 
-//        when(stubExtractor.extract()).thenThrow(new DataExtractException(EXCEPTION_TEST_MESSAGE));
+        when(stubExtractor.extract()).thenThrow(new DataExtractException(EXCEPTION_TEST_MESSAGE));
         // When
         final Throwable caughtException = assertThrows(EtlException.class, controller::fullEtlProcess);
         assertEquals("Please stop data extracting process!", caughtException.getMessage());
@@ -82,7 +82,7 @@ public class EtlControllerTest {
     @Test
     void shouldThrowParseException() throws DataExtractException, ParseException {
         // Given
-        makeStubBehaviour(ParseException.class, EXCEPTION_TEST_MESSAGE, stubExtractor::extract);
+        when(stubExtractor.extract()).thenThrow(new ParseException(EXCEPTION_TEST_MESSAGE));
         // When
         final Throwable caughtException = assertThrows(EtlException.class, controller::fullEtlProcess);
         assertEquals("Please stop parsing!", caughtException.getMessage());
@@ -113,19 +113,29 @@ public class EtlControllerTest {
         assertEquals(EXCEPTION_TEST_MESSAGE, cause.getMessage());
     }
 
-    private void makeStubBehaviour(Class<? extends Throwable> exception, String exceptionMessage, java.util.function.Supplier<ExtractedUser[]> executable) {
-        try {
-            when(executable).thenThrow(exception.getConstructor(String.class).newInstance(exceptionMessage));
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
+
+    private void prepareDummyUsersSet() {
+        ExtractedUser dummyUser01 = new ExtractedUser("0001", "qa01");
+        ExtractedUser dummyUser02 = new ExtractedUser("0002", "qa02");
+        dummyUsers = new HashSet<>();
+        dummyUsers.add(dummyUser01);
+        dummyUsers.add(dummyUser02);
     }
+
+//    private void makeStubBehaviour(Class<? extends Throwable> exception, String exceptionMessage, java.util.function.Supplier<ExtractedUser[]> executable) {
+//        try {
+//            when(executable).thenThrow(exception.getConstructor(String.class).newInstance(exceptionMessage));
+//        } catch (InstantiationException e) {
+//            e.printStackTrace();
+//        } catch (IllegalAccessException e) {
+//            e.printStackTrace();
+//        } catch (InvocationTargetException e) {
+//            e.printStackTrace();
+//        } catch (NoSuchMethodException e) {
+//            e.printStackTrace();
+//        }
+//    }
+
 }
 
 //    class BehaviourBuilder {
