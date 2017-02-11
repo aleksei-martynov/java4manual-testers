@@ -19,7 +19,6 @@ import java.util.HashSet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -56,8 +55,6 @@ public class EtlControllerTest {
     @Test
     void shouldDoFullEtlWhenNoExceptions() throws DataExtractException, ParseException, TransformException, DataLoadException {
         // Given
-//        Class<? extends Throwable> exceptionType = DataExtractException.class;
-
         when(stubExtractor.extract()).thenReturn(dummyUsers);
         // When
         controller.fullEtlProcess();
@@ -68,9 +65,10 @@ public class EtlControllerTest {
     @Test
     void shouldThrowDataExtractException() throws DataExtractException, ParseException {
         // Given
-//        makeStubBehaviour(DataExtractException.class, EXCEPTION_TEST_MESSAGE, stubExtractor::extract);
-
-        when(stubExtractor.extract()).thenThrow(new DataExtractException(EXCEPTION_TEST_MESSAGE));
+        new BehaviourBuilder()
+                .addExceptionToThrow(DataExtractException.class)
+                .addExceptionMessage(EXCEPTION_TEST_MESSAGE)
+                .build(stubExtractor);
         // When
         final Throwable caughtException = assertThrows(EtlException.class, controller::fullEtlProcess);
         assertEquals("Please stop data extracting process!", caughtException.getMessage());
@@ -82,7 +80,10 @@ public class EtlControllerTest {
     @Test
     void shouldThrowParseException() throws DataExtractException, ParseException {
         // Given
-        when(stubExtractor.extract()).thenThrow(new ParseException(EXCEPTION_TEST_MESSAGE));
+        new BehaviourBuilder()
+                .addExceptionToThrow(ParseException.class)
+                .addExceptionMessage(EXCEPTION_TEST_MESSAGE)
+                .build(stubExtractor);
         // When
         final Throwable caughtException = assertThrows(EtlException.class, controller::fullEtlProcess);
         assertEquals("Please stop parsing!", caughtException.getMessage());
@@ -94,7 +95,10 @@ public class EtlControllerTest {
     @Test
     void shouldThrowDataLoadException() throws DataExtractException, ParseException, TransformException, DataLoadException {
         // Given
-        doThrow(new DataLoadException(EXCEPTION_TEST_MESSAGE)).when(mockLoader).load(any());
+        new BehaviourBuilder()
+                .addExceptionToThrow(DataLoadException.class)
+                .addExceptionMessage(EXCEPTION_TEST_MESSAGE)
+                .build(mockLoader);
         // When
         final Throwable caughtException = assertThrows(EtlException.class, controller::fullEtlProcess);
         assertEquals("Please stop data loading process!", caughtException.getMessage());
@@ -105,7 +109,10 @@ public class EtlControllerTest {
     @Test
     void shouldThrowTransformException() throws DataExtractException, ParseException, TransformException, DataLoadException {
         // Given
-        doThrow(new TransformException(EXCEPTION_TEST_MESSAGE)).when(mockLoader).load(any());
+        new BehaviourBuilder()
+                .addExceptionToThrow(TransformException.class)
+                .addExceptionMessage(EXCEPTION_TEST_MESSAGE)
+                .build(mockLoader);
         // When
         final Throwable caughtException = assertThrows(EtlException.class, controller::fullEtlProcess);
         assertEquals("Please stop transforming!", caughtException.getMessage());
@@ -121,40 +128,35 @@ public class EtlControllerTest {
         dummyUsers.add(dummyUser01);
         dummyUsers.add(dummyUser02);
     }
-
-//    private void makeStubBehaviour(Class<? extends Throwable> exception, String exceptionMessage, java.util.function.Supplier<ExtractedUser[]> executable) {
-//        try {
-//            when(executable).thenThrow(exception.getConstructor(String.class).newInstance(exceptionMessage));
-//        } catch (InstantiationException e) {
-//            e.printStackTrace();
-//        } catch (IllegalAccessException e) {
-//            e.printStackTrace();
-//        } catch (InvocationTargetException e) {
-//            e.printStackTrace();
-//        } catch (NoSuchMethodException e) {
-//            e.printStackTrace();
-//        }
-//    }
-
 }
 
-//    class BehaviourBuilder {
-//        public BehaviourBuilder withException(Class<? extends Throwable> exceptionType, String exceptionMessage, Executable executable) {
-//            try {
-//                exceptionType.getConstructor(String.class).newInstance(exceptionMessage);
-//            } catch (InstantiationException e) {
-//                e.printStackTrace();
-//            } catch (IllegalAccessException e) {
-//                e.printStackTrace();
-//            } catch (InvocationTargetException e) {
-//                e.printStackTrace();
-//            } catch (NoSuchMethodException e) {
-//                e.printStackTrace();
-//            }
-//            return this;
-//        }
-//        public void build(Class<? extends Throwable> exceptionType, String exceptionMessage, Executable executable){
-//            when(executable).thenThrow(this)
-//        }
-//    }
-//}
+class BehaviourBuilder {
+    private Class<? extends Throwable> exceptionToThrow;
+    private String exceptionMessage;
+
+    BehaviourBuilder addExceptionToThrow(Class<? extends Throwable> exceptionType) {
+        this.exceptionToThrow = exceptionType;
+        return this;
+    }
+
+    BehaviourBuilder addExceptionMessage(String message) {
+        this.exceptionMessage = message;
+        return this;
+    }
+
+    void build(EtlExtractor e) {
+        try {
+            when(e.extract()).thenThrow(this.exceptionToThrow.getConstructor(String.class).newInstance(exceptionMessage));
+        } catch (Exception e1) {
+            throw new RuntimeException("Build for EtlExtractor failed. Debug build method!", e1);
+        }
+    }
+
+    void build(EtlLoader e) {
+        try {
+            when(e.load(any())).thenThrow(this.exceptionToThrow.getConstructor(String.class).newInstance(exceptionMessage));
+        } catch (Exception e1) {
+            throw new RuntimeException("Build for EtlLoader failed. Debug build method!", e1);
+        }
+    }
+}

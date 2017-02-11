@@ -189,3 +189,17 @@
 2017-02-10 21:42:20,931 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:45] @AfterAll works!!!
 2017-02-10 21:44:27,821 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:40] @BeforAll works!!!
 2017-02-10 21:44:27,995 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:45] @AfterAll works!!!
+2017-02-10 21:48:29,317 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:40] @BeforAll works!!!
+2017-02-10 21:48:29,639 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:45] @AfterAll works!!!
+2017-02-11 09:18:09,114 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:42] @BeforAll works!!!
+2017-02-11 09:18:09,288 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:47] @AfterAll works!!!
+2017-02-11 09:30:46,270 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:41] @BeforAll works!!!
+2017-02-11 09:30:46,484 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:46] @AfterAll works!!!
+2017-02-11 09:31:45,545 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:41] @BeforAll works!!!
+2017-02-11 09:31:45,729 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:46] @AfterAll works!!!
+2017-02-11 19:51:23,321 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:39] @BeforAll works!!!
+2017-02-11 19:51:23,498 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:44] @AfterAll works!!!
+2017-02-11 19:52:35,707 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:39] @BeforAll works!!!
+2017-02-11 19:52:35,872 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:44] @AfterAll works!!!
+2017-02-11 19:56:41,129 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:39] @BeforAll works!!!
+2017-02-11 19:56:41,296 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:44] @AfterAll works!!!

@@ -6,6 +6,9 @@ import com.db.edu.etl.ExtractedUser;
 
 import java.util.HashSet;
 
+/*
+ * Returns true if no errors in process
+ */
 public interface EtlLoader {
-    void load(HashSet<ExtractedUser> users) throws DataLoadException, TransformException;
+    boolean load(HashSet<ExtractedUser> users) throws DataLoadException, TransformException;
 }

@@ -6,6 +6,7 @@ import java.util.HashSet;
 
 public class StubLoader1 implements EtlLoader {
     @Override
-    public void load(HashSet<ExtractedUser> users) {
+    public boolean load(HashSet<ExtractedUser> users) {
+        return true;
     }
 }
