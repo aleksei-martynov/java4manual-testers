@@ -48,7 +48,7 @@ public class EtlControllerTest {
     void prepare() {
         stubExtractor = mock(EtlExtractor.class);
         mockLoader = mock(EtlLoader.class);
-        prepareDummyUsersSet();
+        dummyUsers = prepareDummyUsersSet(2);
         controller = new EtlController(stubExtractor, new EtlLoader[]{mockLoader, mockLoader});
     }
 
@@ -121,12 +121,25 @@ public class EtlControllerTest {
     }
 
 
-    private void prepareDummyUsersSet() {
+    private HashSet<ExtractedUser> prepareDummyUsersSet(Integer number) {
+        if (number < 1) {
+            throw new RuntimeException("Incorrect number of values");
+        }
+        dummyUsers = new HashSet<>();
+
+        Integer counter = 1;
+        while (counter <= number) {
+            dummyUsers.add(new ExtractedUser("000"+counter.toString(), "qa0"+counter.toString()));
+            counter++;
+        }
+
+
         ExtractedUser dummyUser01 = new ExtractedUser("0001", "qa01");
         ExtractedUser dummyUser02 = new ExtractedUser("0002", "qa02");
         dummyUsers = new HashSet<>();
         dummyUsers.add(dummyUser01);
         dummyUsers.add(dummyUser02);
+        return dummyUsers;
     }
 }
 

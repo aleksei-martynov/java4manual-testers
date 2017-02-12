@@ -203,3 +203,5 @@
 2017-02-11 19:52:35,872 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:44] @AfterAll works!!!
 2017-02-11 19:56:41,129 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:39] @BeforAll works!!!
 2017-02-11 19:56:41,296 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:44] @AfterAll works!!!
+2017-02-12 13:18:17,632 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:39] @BeforAll works!!!
+2017-02-12 13:18:18,128 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:44] @AfterAll works!!!
