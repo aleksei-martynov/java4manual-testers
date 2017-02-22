@@ -71,7 +71,7 @@ public class EtlControllerTest {
                 .build(stubExtractor);
         // When
         final Throwable caughtException = assertThrows(EtlException.class, controller::fullEtlProcess);
-        assertEquals("Please stop data extracting process!", caughtException.getMessage());
+        assertEquals("Please stop data extracting process!!", caughtException.getMessage());
 
         final DataExtractException cause = (DataExtractException) caughtException.getCause();
         assertEquals(EXCEPTION_TEST_MESSAGE, cause.getMessage());
