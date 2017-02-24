@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashSet;
 
@@ -59,22 +60,22 @@ public class FileCSVExtractorTest {
     }
 
     @Test
-    void shouldThrowDataExtractException() {
+    void shouldThrowDataExtractExceptionCausedFNFE() {
         File notExistedFilePath = new File(NOT_EXISTED_TEST_DATA);
 
         final Throwable caughtException = assertThrows(
                 DataExtractException.class,
                 () -> fileCSVExtractor.extract(notExistedFilePath)
         );
+        assertEquals(FileNotFoundException.class, caughtException.getCause().getClass());
         assertEquals("Open file exception", caughtException.getMessage());
     }
 
     @Test
     void shouldThrowParseException() throws IOException {
-//        HashSet<ExtractedUser> extractedUsers = fileCSVExtractor.extract(new File(NEG_TEST_DATA));
         File badDataFilePath = new File(NEG_TEST_DATA);
 
-        final Throwable caughtException = assertThrows(
+        assertThrows(
                 ParseException.class,
                 () -> fileCSVExtractor.extract(badDataFilePath)
         );
