@@ -1,4 +1,4 @@
-package com.db.edu.etl.Exception;
+package com.db.edu.etl.exception;
 
 public class EtlException extends RuntimeException {
     public EtlException() {

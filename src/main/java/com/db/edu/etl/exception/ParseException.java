@@ -1,4 +1,4 @@
-package com.db.edu.etl.Exception;
+package com.db.edu.etl.exception;
 
 public class ParseException extends RuntimeException {
     public ParseException() {

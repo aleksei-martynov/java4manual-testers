@@ -1,20 +1,24 @@
 package com.db.edu;
 
 import com.db.edu.etl.EtlController;
-import com.db.edu.etl.Exception.DataExtractException;
-import com.db.edu.etl.Exception.EtlException;
-import com.db.edu.etl.Loader.EtlLoader;
-import com.db.edu.etl.Extractor.FileCvsExtractor;
-import com.db.edu.etl.Loader.StubLoader1;
-import com.db.edu.etl.Loader.StubLoader2;
+import com.db.edu.etl.exception.DataExtractException;
+import com.db.edu.etl.exception.EtlException;
+import com.db.edu.etl.extractor.FileCSVExtractor;
+import com.db.edu.etl.loader.EtlLoader;
+import com.db.edu.etl.loader.StubLoader1;
+import com.db.edu.etl.loader.StubLoader2;
+
+import java.io.File;
 
 //TODO: Move all checks to Tests
 public class Main {
+    private static final String DEFAULT_EXTRACT_FILE = "testData\\csvPosTest.csv";
     public static void main(String[] args) {
         try {
             new EtlController(
-                    new FileCvsExtractor(),
-                    new EtlLoader[]{new StubLoader1(), new StubLoader2()}
+                    new FileCSVExtractor(),
+                    new EtlLoader[]{new StubLoader1(), new StubLoader2()},
+                    new File(DEFAULT_EXTRACT_FILE)
             ).fullEtlProcess();
         } catch (EtlException e) {
             try {

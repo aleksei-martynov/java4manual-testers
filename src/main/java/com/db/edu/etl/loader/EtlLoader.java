@@ -1,7 +1,7 @@
-package com.db.edu.etl.Loader;
+package com.db.edu.etl.loader;
 
-import com.db.edu.etl.Exception.DataLoadException;
-import com.db.edu.etl.Exception.TransformException;
+import com.db.edu.etl.exception.DataLoadException;
+import com.db.edu.etl.exception.TransformException;
 import com.db.edu.etl.ExtractedUser;
 
 import java.util.HashSet;

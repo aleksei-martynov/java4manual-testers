@@ -205,3 +205,61 @@
 2017-02-11 19:56:41,296 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:44] @AfterAll works!!!
 2017-02-12 13:18:17,632 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:39] @BeforAll works!!!
 2017-02-12 13:18:18,128 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:44] @AfterAll works!!!
+2017-02-22 19:55:12,859 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:39] @BeforAll works!!!
+2017-02-22 19:55:13,216 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:44] @AfterAll works!!!
+2017-02-23 13:02:47,122 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:39] @BeforAll works!!!
+2017-02-23 13:02:47,448 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:44] @AfterAll works!!!
+2017-02-23 20:51:47,487 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:44] @BeforAll works!!!
+2017-02-23 20:51:47,784 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:49] @AfterAll works!!!
+2017-02-24 17:21:02,203 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:44] @BeforAll works!!!
+2017-02-24 17:21:02,581 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:49] @AfterAll works!!!
+2017-02-24 17:55:32,931 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:44] Start testing class:Class
+2017-02-24 17:55:33,299 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:49] End testing class:Class
+2017-02-24 17:55:33,306 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:20] Start testing class:Class
+2017-02-24 17:55:33,327 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:25] End testing class:Class
+2017-02-24 18:00:49,699 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:44] Start testing class:Class
+2017-02-24 18:00:50,148 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:49] End testing class:Class
+2017-02-24 18:00:50,161 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:20] Start testing class:Class
+2017-02-24 18:00:50,189 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:25] End testing class:Class
+2017-02-24 18:06:18,939 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:20] Start testing class:Class
+2017-02-24 18:06:18,978 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:25] End testing class:Class
+2017-02-24 18:09:10,018 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:20] Start testing class:Class
+2017-02-24 18:09:10,064 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:25] End testing class:Class
+2017-02-24 18:10:44,070 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:20] Start testing class:Class
+2017-02-24 18:10:44,096 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:25] End testing class:Class
+2017-02-24 18:37:51,371 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:20] Start testing class:Class
+2017-02-24 18:37:51,398 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:25] End testing class:Class
+2017-02-24 18:38:09,388 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:20] Start testing class:Class
+2017-02-24 18:38:09,436 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:25] End testing class:Class
+2017-02-24 19:14:46,005 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:20] Start testing class:Class
+2017-02-24 19:14:46,040 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:25] End testing class:Class
+2017-02-24 19:15:56,336 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:20] Start testing class:Class
+2017-02-24 19:15:56,382 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:25] End testing class:Class
+2017-02-24 19:16:04,647 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:20] Start testing class:Class
+2017-02-24 19:16:04,685 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:25] End testing class:Class
+2017-02-24 19:25:15,314 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:44] Start testing class:Class
+2017-02-24 19:25:16,038 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:49] End testing class:Class
+2017-02-24 19:25:16,053 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:20] Start testing class:Class
+2017-02-24 19:25:16,074 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:25] End testing class:Class
+2017-02-24 20:32:10,544 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:27] Start testing class:Class
+2017-02-24 20:32:10,582 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:32] End testing class:Class
+2017-02-24 20:32:44,641 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:44] Start testing class:Class
+2017-02-24 20:32:45,133 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:49] End testing class:Class
+2017-02-24 20:32:45,141 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:27] Start testing class:Class
+2017-02-24 20:32:45,165 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:32] End testing class:Class
+2017-02-24 20:44:19,368 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:44] Start testing class:Class
+2017-02-24 20:44:19,786 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:49] End testing class:Class
+2017-02-24 20:44:19,814 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:31] Start testing class:Class
+2017-02-24 20:44:19,851 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:36] End testing class:Class
+2017-02-24 20:44:36,687 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:31] Start testing class:Class
+2017-02-24 20:44:36,741 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:36] End testing class:Class
+2017-02-24 20:45:04,343 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:31] Start testing class:Class
+2017-02-24 20:45:04,380 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:36] End testing class:Class
+2017-02-24 20:45:19,933 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:44] Start testing class:Class
+2017-02-24 20:45:20,321 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:49] End testing class:Class
+2017-02-24 20:45:20,330 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:31] Start testing class:Class
+2017-02-24 20:45:20,373 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:36] End testing class:Class
+2017-02-24 20:49:51,867 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:44] Start testing class:Class
+2017-02-24 20:49:52,307 INFO [main] c.d.e.e.EtlControllerTest [EtlControllerTest.java:49] End testing class:Class
+2017-02-24 20:49:52,317 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:31] Start testing class:Class
+2017-02-24 20:49:52,358 INFO [main] c.d.e.e.e.FileCSVExtractorTest [FileCSVExtractorTest.java:36] End testing class:Class

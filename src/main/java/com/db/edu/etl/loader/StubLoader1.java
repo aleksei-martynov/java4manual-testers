@@ -1,4 +1,4 @@
-package com.db.edu.etl.Loader;
+package com.db.edu.etl.loader;
 
 import com.db.edu.etl.ExtractedUser;
 

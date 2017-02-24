@@ -1,4 +1,4 @@
-package com.db.edu.etl.Exception;
+package com.db.edu.etl.exception;
 
 import com.db.edu.etl.ExtractedUser;
 

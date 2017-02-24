@@ -1,12 +1,12 @@
 package com.db.edu.etl;
 
-import com.db.edu.etl.Exception.DataExtractException;
-import com.db.edu.etl.Exception.DataLoadException;
-import com.db.edu.etl.Exception.EtlException;
-import com.db.edu.etl.Exception.ParseException;
-import com.db.edu.etl.Exception.TransformException;
-import com.db.edu.etl.Extractor.EtlExtractor;
-import com.db.edu.etl.Loader.EtlLoader;
+import com.db.edu.etl.exception.DataExtractException;
+import com.db.edu.etl.exception.DataLoadException;
+import com.db.edu.etl.exception.EtlException;
+import com.db.edu.etl.exception.ParseException;
+import com.db.edu.etl.exception.TransformException;
+import com.db.edu.etl.extractor.EtlExtractor;
+import com.db.edu.etl.loader.EtlLoader;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -14,6 +14,8 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -28,34 +30,39 @@ public class EtlControllerTest {
 
     private static final Logger logger = LoggerFactory.getLogger(EtlControllerTest.class);
     private static final String EXCEPTION_TEST_MESSAGE = "Exception test message";
+    private static final int NUMBER_OF_DUMMIES = 2;
+    private static final String TEST_EXTRACT_FILE_PATH = "csvPosTest.csv";
 
     private EtlExtractor stubExtractor;
     private EtlLoader mockLoader;
     private HashSet<ExtractedUser> dummyUsers;
     private EtlController controller;
+    private File extractFilePath;
 
     @BeforeAll
-    static void BeforAllTest() {
-        logger.info("@BeforAll works!!!");
+    static void beforeAllTest() {
+        logger.info("Start testing class:" + EtlController.class.getClass().getSimpleName());
     }
 
     @AfterAll
-    static void AfterAllTest() {
-        logger.info("@AfterAll works!!!");
+    static void afterAllTest() {
+        logger.info("End testing class:" + EtlController.class.getClass().getSimpleName());
     }
 
     @BeforeEach
     void prepare() {
         stubExtractor = mock(EtlExtractor.class);
         mockLoader = mock(EtlLoader.class);
-        dummyUsers = prepareDummyUsersSet(2);
-        controller = new EtlController(stubExtractor, new EtlLoader[]{mockLoader, mockLoader});
+        extractFilePath = new File(TEST_EXTRACT_FILE_PATH);
+        dummyUsers = prepareDummyUsersSet(NUMBER_OF_DUMMIES);
+        controller = new EtlController(stubExtractor, new EtlLoader[]{mockLoader, mockLoader}, extractFilePath);
+        extractFilePath = new File(TEST_EXTRACT_FILE_PATH);
     }
 
     @Test
-    void shouldDoFullEtlWhenNoExceptions() throws DataExtractException, ParseException, TransformException, DataLoadException {
+    void shouldDoFullEtlWhenNoExceptions() throws DataExtractException, ParseException, TransformException, DataLoadException, IOException {
         // Given
-        when(stubExtractor.extract()).thenReturn(dummyUsers);
+        when(stubExtractor.extract(extractFilePath)).thenReturn(dummyUsers);
         // When
         controller.fullEtlProcess();
         // Then
@@ -65,13 +72,13 @@ public class EtlControllerTest {
     @Test
     void shouldThrowDataExtractException() throws DataExtractException, ParseException {
         // Given
-        new BehaviourBuilder()
+        new ControllerBehaviourBuilder()
                 .addExceptionToThrow(DataExtractException.class)
                 .addExceptionMessage(EXCEPTION_TEST_MESSAGE)
                 .build(stubExtractor);
         // When
         final Throwable caughtException = assertThrows(EtlException.class, controller::fullEtlProcess);
-        assertEquals("Please stop data extracting process!!", caughtException.getMessage());
+        assertEquals("Please stop data extracting process!", caughtException.getMessage());
 
         final DataExtractException cause = (DataExtractException) caughtException.getCause();
         assertEquals(EXCEPTION_TEST_MESSAGE, cause.getMessage());
@@ -80,7 +87,7 @@ public class EtlControllerTest {
     @Test
     void shouldThrowParseException() throws DataExtractException, ParseException {
         // Given
-        new BehaviourBuilder()
+        new ControllerBehaviourBuilder()
                 .addExceptionToThrow(ParseException.class)
                 .addExceptionMessage(EXCEPTION_TEST_MESSAGE)
                 .build(stubExtractor);
@@ -95,7 +102,7 @@ public class EtlControllerTest {
     @Test
     void shouldThrowDataLoadException() throws DataExtractException, ParseException, TransformException, DataLoadException {
         // Given
-        new BehaviourBuilder()
+        new ControllerBehaviourBuilder()
                 .addExceptionToThrow(DataLoadException.class)
                 .addExceptionMessage(EXCEPTION_TEST_MESSAGE)
                 .build(mockLoader);
@@ -109,7 +116,7 @@ public class EtlControllerTest {
     @Test
     void shouldThrowTransformException() throws DataExtractException, ParseException, TransformException, DataLoadException {
         // Given
-        new BehaviourBuilder()
+        new ControllerBehaviourBuilder()
                 .addExceptionToThrow(TransformException.class)
                 .addExceptionMessage(EXCEPTION_TEST_MESSAGE)
                 .build(mockLoader);
@@ -143,23 +150,23 @@ public class EtlControllerTest {
     }
 }
 
-class BehaviourBuilder {
+class ControllerBehaviourBuilder {
     private Class<? extends Throwable> exceptionToThrow;
     private String exceptionMessage;
 
-    BehaviourBuilder addExceptionToThrow(Class<? extends Throwable> exceptionType) {
+    ControllerBehaviourBuilder addExceptionToThrow(Class<? extends Throwable> exceptionType) {
         this.exceptionToThrow = exceptionType;
         return this;
     }
 
-    BehaviourBuilder addExceptionMessage(String message) {
+    ControllerBehaviourBuilder addExceptionMessage(String message) {
         this.exceptionMessage = message;
         return this;
     }
 
     void build(EtlExtractor e) {
         try {
-            when(e.extract()).thenThrow(this.exceptionToThrow.getConstructor(String.class).newInstance(exceptionMessage));
+            when(e.extract(any(File.class))).thenThrow(this.exceptionToThrow.getConstructor(String.class).newInstance(exceptionMessage));
         } catch (Exception e1) {
             throw new RuntimeException("Build for EtlExtractor failed. Debug build method!", e1);
         }
