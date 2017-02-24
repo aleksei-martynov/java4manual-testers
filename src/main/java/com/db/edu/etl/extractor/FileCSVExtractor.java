@@ -30,7 +30,6 @@ public class FileCSVExtractor implements EtlExtractor {
             CSVParser csvFileParser = new CSVParser(fileReader, csvFileFormat);
             List<CSVRecord> csvRecords = csvFileParser.getRecords();
 
-
             for (CSVRecord record : csvRecords) {
                 if (record.size()!= CSV_DEFAULT_MAPPING.length) {
                     throw new ParseException("Record sizes do not match" + record.toString());
@@ -41,11 +40,6 @@ public class FileCSVExtractor implements EtlExtractor {
         } catch (IOException e) {
             throw new DataExtractException("Open file exception", e);
         }
-        //  start: just for test
-//        for (ExtractedUser usr : users) {
-//            System.out.println(usr.toString());
-//        }
-        //  end: just for test
         return users;
     }
 }
