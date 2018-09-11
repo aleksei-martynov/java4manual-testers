@@ -41,12 +41,12 @@ public class EtlControllerTest {
 
     @BeforeAll
     static void beforeAllTest() {
-        logger.info("Start testing class:" + EtlController.class.getClass().getSimpleName());
+        logger.info("Start testing class:" + EtlController.class.getSimpleName());
     }
 
     @AfterAll
     static void afterAllTest() {
-        logger.info("End testing class:" + EtlController.class.getClass().getSimpleName());
+        logger.info("End testing class:" + EtlController.class.getSimpleName());
     }
 
     @BeforeEach
@@ -100,7 +100,7 @@ public class EtlControllerTest {
     }
 
     @Test
-    void shouldThrowDataLoadException() throws DataExtractException, ParseException, TransformException, DataLoadException {
+    void shouldThrowDataLoadException() throws DataExtractException, ParseException{
         // Given
         new ControllerBehaviourBuilder()
                 .addExceptionToThrow(DataLoadException.class)
@@ -114,7 +114,7 @@ public class EtlControllerTest {
     }
 
     @Test
-    void shouldThrowTransformException() throws DataExtractException, ParseException, TransformException, DataLoadException {
+    void shouldThrowTransformException() throws DataExtractException, ParseException {
         // Given
         new ControllerBehaviourBuilder()
                 .addExceptionToThrow(TransformException.class)
